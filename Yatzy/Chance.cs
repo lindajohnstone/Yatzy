@@ -2,13 +2,8 @@ using System.Linq;
 
 namespace Yatzy
 {
-    public class Chance
+    public class Chance : ICategory
     {
-
-        public Chance()
-        {
-        }
-
         public int Score(int[] turn)
         {
             return turn.Sum();
