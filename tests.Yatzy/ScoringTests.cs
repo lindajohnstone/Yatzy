@@ -32,5 +32,22 @@ namespace tests.Yatzy
             //assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(new [] {3,3,3,4,4}, 8)]
+        [InlineData(new [] {1,1,6,2,6}, 12)]
+        [InlineData(new [] {3,3,3,4,1}, 6)]
+        [InlineData(new [] {3,3,3,3,1}, 6)]
+        [InlineData(new [] {1,2,3,6,6}, 12)]
+        [InlineData(new [] {1,2,3,4,5}, 0)]
+        public void ShouldTestPairsCategoryRule(int[] turn, int expected)
+        {
+            // arrange
+            var pairs = new Pairs();
+            // act
+            var result = pairs.Score(turn);
+            // assert
+            Assert.Equal(expected, result);
+        }
     }
 }
