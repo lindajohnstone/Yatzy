@@ -40,6 +40,7 @@ namespace tests.Yatzy
         [InlineData(new [] {3,3,3,3,1}, 6)]
         [InlineData(new [] {1,2,3,6,6}, 12)]
         [InlineData(new [] {1,2,3,4,5}, 0)]
+        [InlineData(new [] {1,2,1,3,4}, 2)]
         public void ShouldTestPairsCategoryRule(int[] turn, int expected)
         {
             // arrange
