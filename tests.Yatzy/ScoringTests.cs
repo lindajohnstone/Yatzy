@@ -50,5 +50,20 @@ namespace tests.Yatzy
             // assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(new [] {1,1,2,4,4}, 4, 8)]
+        [InlineData(new [] {2,3,2,5,1}, 2, 4)]
+        [InlineData(new [] {3,3,3,4,5}, 1, 0)]
+        public void ShouldTestNumbersRule(int[] turn, int category, int expectedResult)
+        {
+            // arrange
+            var numbers = new Numbers();
+            // act
+            var result = numbers.Score(turn,category);
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
+
     }
 }
