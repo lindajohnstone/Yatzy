@@ -52,18 +52,82 @@ namespace tests.Yatzy
         }
 
         [Theory]
-        [InlineData(new [] {1,1,2,4,4}, 4, 8)]
-        [InlineData(new [] {2,3,2,5,1}, 2, 4)]
-        [InlineData(new [] {3,3,3,4,5}, 1, 0)]
-        public void ShouldTestNumbersRule(int[] turn, int category, int expectedResult)
+        [InlineData(new [] {1,1,2,4,4}, 2)]
+        [InlineData(new [] {2,3,2,5,1}, 1)]
+        [InlineData(new [] {3,3,3,4,5}, 0)]
+        public void ShouldTestOnesRule(int[] turn, int expectedResult)
         {
             // arrange
-            var numbers = new Numbers();
+            var numbers = new Ones();
             // act
-            var result = numbers.Score(turn,category);
+            var result = numbers.Score(turn);
             // assert
             Assert.Equal(expectedResult, result);
         }
-
+[Theory]
+        [InlineData(new [] {1,1,2,4,4}, 2)]
+        [InlineData(new [] {2,3,2,5,1}, 4)]
+        [InlineData(new [] {3,3,3,4,5}, 0)]
+        public void ShouldTestTwosRule(int[] turn, int expectedResult)
+        {
+            // arrange
+            var numbers = new Twos();
+            // act
+            var result = numbers.Score(turn);
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
+        [Theory]
+        [InlineData(new [] {1,1,2,4,4}, 0)]
+        [InlineData(new [] {2,3,2,5,1}, 3)]
+        [InlineData(new [] {3,3,3,4,5}, 9)]
+        public void ShouldTestThreesRule(int[] turn, int expectedResult)
+        {
+            // arrange
+            var numbers = new Threes();
+            // act
+            var result = numbers.Score(turn);
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
+        [Theory]
+        [InlineData(new [] {1,1,2,4,4}, 8)]
+        [InlineData(new [] {2,3,2,5,1}, 0)]
+        [InlineData(new [] {3,3,3,4,5}, 4)]
+        public void ShouldTestFoursRule(int[] turn, int expectedResult)
+        {
+            // arrange
+            var numbers = new Fours();
+            // act
+            var result = numbers.Score(turn);
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
+        [Theory]
+        [InlineData(new [] {1,1,2,4,4}, 0)]
+        [InlineData(new [] {2,3,2,5,1}, 5)]
+        [InlineData(new [] {3,3,5,4,5}, 10)]
+        public void ShouldTestFivesRule(int[] turn, int expectedResult)
+        {
+            // arrange
+            var numbers = new Fives();
+            // act
+            var result = numbers.Score(turn);
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
+        [Theory]
+        [InlineData(new [] {1,1,2,4,4}, 0)]
+        [InlineData(new [] {1,2,6,5,6}, 12)] 
+        [InlineData(new [] {1,6,6,5,6}, 18)]       
+        public void ShouldTestSixesRule(int[] turn, int expectedResult)
+        {
+            // arrange
+            var numbers = new Sixes();
+            // act
+            var result = numbers.Score(turn);
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
