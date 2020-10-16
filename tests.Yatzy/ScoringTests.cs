@@ -129,5 +129,23 @@ namespace tests.Yatzy
             // assert
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [InlineData(new [] {1,1,2,3,3}, 8)]
+        [InlineData(new [] {1,1,2,3,4}, 0)]
+        [InlineData(new [] {2,2,2,2,5}, 8)]
+        [InlineData(new [] {1,1,2,2,2}, 6)]
+       
+        public void ShouldTestTwoPairsRule(int[] turn, int expectedResult)
+        {
+            // arrange
+            var target = new TwoPairs();
+
+            // act
+            var result = target.Score(turn);
+
+            // assert
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
