@@ -147,5 +147,20 @@ namespace tests.Yatzy
             // assert
             Assert.Equal(expectedResult, result);
         }
+        [Theory]
+        [InlineData(new [] {3,3,3,4,5},9)]
+        [InlineData(new [] {1,2,3,3,3},9)]
+        [InlineData(new [] {1,4,4,4,5},12)]
+        [InlineData(new [] {3,3,4,5,6},0)]
+        [InlineData(new [] {3,3,3,3,1},9)]
+        public void Should_Test_ThreeOfAKind(int[] turn, int expected)
+        {
+            // arrange
+            var target = new ThreeOfAKind();
+            // act
+            var result = target.Score(turn);
+            // assert
+            Assert.Equal(expected, result);
+        }
     }
 }
