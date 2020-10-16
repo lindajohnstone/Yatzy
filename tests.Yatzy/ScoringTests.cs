@@ -162,5 +162,23 @@ namespace tests.Yatzy
             // assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(new [] {2,2,2,2,5}, 8)]
+        [InlineData(new [] {2,2,2,5,5}, 0)]
+        [InlineData(new [] {2,2,2,2,2}, 8)]
+        [InlineData(new [] {0,2,2,2,2}, 8)]
+        [InlineData(new [] {1,2,1,1,1}, 4)]
+        public void Should_Test_FourOfAKind(int[] turn, int expectedResult)
+        {
+           // arrange
+           var target = new FourOfAKind();
+
+           // act
+           var result = target.Score(turn);
+
+           // assert
+           Assert.Equal(expectedResult, result);
+        }
     }
 }
