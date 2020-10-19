@@ -204,5 +204,22 @@ namespace tests.Yatzy
             // assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(new [] {1,1,2,2,2}, 8)]
+        [InlineData(new [] {2,2,3,3,4}, 0)]
+        [InlineData(new [] {4,4,4,4,4}, 0)]
+        [InlineData(new [] {3,4,3,4,3}, 17)]
+        public void Should_Test_FullHouse(int[] turn, int expected)
+        {
+            // arrange
+            var target = new FullHouse();
+
+            // act
+            var result = target.Score(turn);
+
+            // assert
+            Assert.Equal(expected, result);
+        }
     }
 }
