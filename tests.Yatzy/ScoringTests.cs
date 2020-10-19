@@ -180,5 +180,29 @@ namespace tests.Yatzy
            // assert
            Assert.Equal(expectedResult, result);
         }
+        [Fact]
+        public void Should_Test_SmallStraight()
+        {
+            // arrange
+            ICategory target = new SmallStraight();
+            int[] turn = {1,2,3,4,5};
+            var expected = 15;
+            // act
+            var result = target.Score(turn);
+            // assert
+            Assert.Equal(expected, result);
+        }
+        [Fact]
+        public void Should_Test_LargeStraight()
+        {
+            // arrange
+            ICategory target = new LargeStraight();
+            int[] turn = {2,3,4,5,6};
+            var expected = 20;
+            // act
+            var result = target.Score(turn);
+            // assert
+            Assert.Equal(expected, result);
+        }
     }
 }
