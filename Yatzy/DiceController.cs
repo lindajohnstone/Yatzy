@@ -18,5 +18,10 @@ namespace Yatzy
             }
             return roll;
         }
+
+        public int[] Reroll(int[] roll)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
