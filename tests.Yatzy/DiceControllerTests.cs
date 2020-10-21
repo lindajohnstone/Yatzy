@@ -13,10 +13,12 @@ namespace tests.Yatzy
             var controller = new DiceController();
             // act
             var result = controller.Roll();
-            var query = result.Where(_ => _ > 0 && _ < 7);
-            var isValidRoll = query.ToArray().Length == 5;
             // assert
-            Assert.True(isValidRoll);
+            foreach(var die in result)
+            {
+                Assert.InRange(die, 1, 6);
+            }
+            Assert.Equal(5, result.Length);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Yatzy
                 roll[i] = die.Next(1, 7);
             }
             return roll;
-
         }
     }
 }
