@@ -26,13 +26,16 @@ namespace tests.Yatzy
         public void Should_Reroll_Previous_Roll()
         {
             // arrange
-            var controller = new DiceController();
-            var roll = new [] {1, 0, 5, 0, 5};
-            var expectedIntersect = new [] {1, 5, 5};
+            var controller = new DiceControllerStub();
+            var roll = new [] {1, 0, 4, 0, 5};
 
             // act
             var result = controller.Reroll(roll);
-            var intersect = roll.Intersect(result);
+
+            var first = new [] {1, 2, 3, 4, 5};
+
+            var expectedIntersect = new [] {1, 4, 5};
+            var intersect = roll.Intersect(first).ToArray();
 
             // assert
             foreach(var die in result)
