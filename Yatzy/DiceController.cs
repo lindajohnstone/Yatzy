@@ -5,28 +5,25 @@ namespace Yatzy
     public class DiceController
     {
         private Random _die;
+        public int[] Dice { get; private set; }
+
         public DiceController()
         {
-            _die = new Random();   
+            _die = new Random();
+            Dice = new int[5];   
         }
 
-        public int[] Roll()
-        {
-            var roll = new int[5];
-            for (int i = 0; i < 5; i++)
-            {
-                roll[i] = _die.Next(1, 7);
-            }
-            return roll;
-        }
-
-        public virtual int[] Reroll(int[] roll)
+        public virtual void RollAllDice()
         {
             for (int i = 0; i < 5; i++)
             {
-                if(roll[i] == 0) roll[i] = _die.Next(1, 7);
+                Dice[i] = _die.Next(1, 7);
             }
-            return roll;
+        }
+
+        public virtual void RollOneDie(int diceNumber)
+        {
+            Dice[diceNumber] = _die.Next(1, 7);
         }
     }
 }

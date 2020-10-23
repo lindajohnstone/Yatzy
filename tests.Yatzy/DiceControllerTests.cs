@@ -13,7 +13,8 @@ namespace tests.Yatzy
             // arrange
             var controller = new DiceController();
             // act
-            var result = controller.Roll();
+            controller.RollAllDice();
+            var result = controller.Dice;
             // assert
             foreach(var die in result)
             {
@@ -23,25 +24,22 @@ namespace tests.Yatzy
         }
 
         [Fact]
-        public void Should_Reroll_Previous_Roll()
+        public void Should_Reroll_One_Die()
         {
             // arrange
             var controller = new DiceControllerStub();
-            var roll = new [] {1, 0, 4, 0, 5};
+            controller.RollAllDice();
+            var initialRoll = controller.getDiceArray();
 
             // act
-            var result = controller.Reroll(roll);
-
-            var first = new [] {1, 2, 3, 4, 5};
-
-            var expectedIntersect = new [] {1, 4, 5};
-            var intersect = roll.Intersect(first).ToArray();
+            controller.RollOneDie(0);
+            var currentRoll = controller.getDiceArray();
+            var intersect = initialRoll.Intersect(currentRoll).ToArray();
 
             // assert
-            foreach(var die in result)
-            {
-                Assert.InRange(die, 1, 6);
-            }
+            var expectedIntersect = new [] {2, 3, 4, 5};
+
+            Assert.InRange(initialRoll[0], 1, 6);
             Assert.Equal(expectedIntersect, intersect);
         }
     }
