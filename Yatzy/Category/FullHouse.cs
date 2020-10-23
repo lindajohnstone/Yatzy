@@ -4,6 +4,8 @@ namespace Yatzy
 {
     public class FullHouse : ICategory
     {
+        public int Id => 11;
+
         public int Score(int[] turn)
         {
             var pair = new Pairs();

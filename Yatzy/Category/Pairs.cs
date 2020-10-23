@@ -5,6 +5,8 @@ namespace Yatzy
 {
     public class Pairs : ICategory
     {
+        public int Id => 7;
+
         public int Score(int[] turn)
         {
             int count = 0;
