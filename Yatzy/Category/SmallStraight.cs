@@ -4,6 +4,8 @@ namespace Yatzy
 {
     public class SmallStraight : ICategory
     {
+        public int Id => 12;
+
         public int Score(int[] turn)
         {
             var query = turn.OrderBy(turn => turn).ToArray();

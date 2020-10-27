@@ -4,6 +4,8 @@ namespace Yatzy
 {
     public class TwoPairs : ICategory
     {
+        public int Id => 8;
+
         public int Score(int[] turn)
         {
             int count = 0;

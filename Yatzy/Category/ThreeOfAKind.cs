@@ -4,6 +4,8 @@ namespace Yatzy
 {
     public class ThreeOfAKind : ICategory
     {
+        public int Id => 9;
+
         public int Score(int[] turn)
         {
             var query = turn.OrderByDescending(turn => turn).ToArray();

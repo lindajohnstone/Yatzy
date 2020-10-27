@@ -4,6 +4,8 @@ namespace Yatzy
 {
     public class FourOfAKind : ICategory
     {
+        public int Id => 10;
+
         public int Score(int[] turn)
         {
             var numberGroups = turn.GroupBy(_ => _);
