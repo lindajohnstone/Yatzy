@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Yatzy
 {
@@ -28,6 +29,16 @@ namespace Yatzy
             Scores.Add(value, score);
         }
 
-         
+        public int GetTotalScore()
+        {
+            var total = Scores.Values.Where(_ => _ > -1);
+            return total.Sum();
+        }
+
+        public List<Category> GetAvailableCategories()
+        {
+            var categories = Scores.Where(_ => _.Value == -1);
+            return categories.Select(_ => _.Key).ToList();
+        }
     }
 }
