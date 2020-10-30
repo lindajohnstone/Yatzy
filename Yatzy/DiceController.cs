@@ -21,9 +21,9 @@ namespace Yatzy
             }
         }
 
-        public virtual void RollOneDie(int diceNumber)
+        public virtual void RollOneDie(int diceIndex)
         {
-            Dice[diceNumber] = _die.Next(1, 7);
+            Dice[diceIndex] = _die.Next(1, 7);
         }
     }
 }
