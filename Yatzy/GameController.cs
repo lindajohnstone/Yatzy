@@ -37,7 +37,11 @@ namespace Yatzy
                 turnCount++;
             }
 
-            
+            var category = _reader.GetCategoryChoice();
+            _player.AddScore(turn.Dice, category);
+
+            var total = _player.GetTotalScore();
+            Console.WriteLine(total);
         }
     }
 }
