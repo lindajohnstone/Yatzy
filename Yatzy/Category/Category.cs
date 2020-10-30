@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Yatzy
 {
     public enum Category
@@ -9,11 +11,17 @@ namespace Yatzy
         Fives,
         Sixes,
         Pairs,
+        [Description("Two Pairs")]
         TwoPairs,
+        [Description("Three of a Kind")]
         ThreeOfAKind,
+        [Description("Four of a Kind")]
         FourOfAKind,
+        [Description("Full House")]
         FullHouse,
+        [Description("Small Straight")]
         SmallStraight,
+        [Description("Large Straight")]
         LargeStraight,
         Yatzee,
         Chance
