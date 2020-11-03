@@ -4,12 +4,19 @@ namespace Yatzy
 {
     public enum Category
     {
+        [Description("Ones")]
         Ones = 1, 
+        [Description("Twos")]
         Twos,
+        [Description("Threes")]
         Threes,
+        [Description("Fours")]
         Fours,
+        [Description("Fives")]
         Fives,
+        [Description("Sixes")]
         Sixes,
+        [Description("Pairs")]
         Pairs,
         [Description("Two Pairs")]
         TwoPairs,
@@ -23,7 +30,9 @@ namespace Yatzy
         SmallStraight,
         [Description("Large Straight")]
         LargeStraight,
+        [Description("Yatzee")]
         Yatzee,
+        [Description("Chance")]
         Chance
     }
 }
