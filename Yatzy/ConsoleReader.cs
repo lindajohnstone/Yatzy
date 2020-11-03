@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Yatzy
 {
@@ -29,13 +30,36 @@ namespace Yatzy
                 Console.WriteLine("Invalid response. Please hold at least one die and no more than five die. ");
 
             }
-            //int.TryParse(userInput[0], out )
-            return new int[5];
+            var results = new List<int>();
+            foreach (var numberString in diceNumbers)
+            {
+                if (int.TryParse(numberString, out var number))
+                {
+                    results.Add(number);
+                }
+                else
+                {
+                    GetDiceToHold();
+                    break;
+                }
+            }
+            return results.ToArray();
         }
 
         public Choice GetPlayerRollChoice()
         {
-            throw new System.NotImplementedException();
+            var userInput = Console.ReadLine();
+            Choice result;
+            if (Enum.TryParse(typeof(Choice), userInput, out var choice))
+            {
+                result = (Choice)choice;
+            }
+            else 
+            {
+                Console.WriteLine("Invalid response. Please try again. ");
+                result = GetPlayerRollChoice();
+            }
+            return result;
         }
     }
 }
