@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Moq;
 using Xunit;
 using Yatzy;
@@ -12,7 +13,7 @@ namespace tests.Yatzy
             // arrange
             var reader = new Mock<IInputReader>();
             reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
-            reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[]{1, 2}).Returns(new int[]{3, 5});
+            reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
             var writer = new Mock<IOutputWriter>();
             var controller = new GameController(reader.Object, writer.Object);
 
@@ -29,9 +30,10 @@ namespace tests.Yatzy
         {
             // arrange
             var reader = new Mock<IInputReader>();
+            var categories = new List<Category>();
             reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
-            reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[]{1, 2}).Returns(new int[]{3, 5});
-            reader.Setup(o => o.GetCategoryChoice()).Returns(Category.Chance);
+            reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
+            reader.Setup(o => o.GetCategoryChoice(categories)).Returns(Category.Chance);
             var writer = new Mock<IOutputWriter>();
             var controller = new GameController(reader.Object, writer.Object);
 
@@ -39,8 +41,8 @@ namespace tests.Yatzy
             controller.RunGame();
 
             // assert
-            reader.Verify(o => o.GetCategoryChoice(), Times.AtLeastOnce);
-            reader.Verify(o => o.GetCategoryChoice(), Times.AtMost(15));
+            reader.Verify(o => o.GetCategoryChoice(categories), Times.AtLeastOnce);
+            reader.Verify(o => o.GetCategoryChoice(categories), Times.AtMost(15));
         }
     }
 }

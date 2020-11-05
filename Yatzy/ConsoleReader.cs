@@ -5,18 +5,18 @@ namespace Yatzy
 {
     public class ConsoleReader : IInputReader
     {
-        public Category GetCategoryChoice()
+        public Category GetCategoryChoice(List<Category> availableCategories)
         {
             var userInput = Console.ReadLine();
             Category result;
-            if (Enum.TryParse(typeof(Category), userInput, out var choice))
+            if (Enum.TryParse(typeof(Category), userInput, out var choice) && availableCategories.Contains((Category)choice))
             {
                 result = (Category)choice;
             }
-            else 
+            else
             {
-                Console.WriteLine("Invalid response. Please try again. ");
-                result = GetCategoryChoice();
+                Console.WriteLine("Invalid response. Please choose from the list of available categories. ");
+                result = GetCategoryChoice(availableCategories);
             }
             return result;
         }
@@ -24,7 +24,7 @@ namespace Yatzy
         public int[] GetDiceToHold()
         {
             var userInput = Console.ReadLine();
-            var diceNumbers = userInput.Split(new char[] {',', ' '});
+            var diceNumbers = userInput.Split(new char[] { ',', ' ' });
             if (diceNumbers.Length < 1 || diceNumbers.Length > 5)
             {
                 Console.WriteLine("Invalid response. Please hold at least one die and no more than five die. ");
@@ -54,7 +54,7 @@ namespace Yatzy
             {
                 result = (Choice)choice;
             }
-            else 
+            else
             {
                 Console.WriteLine("Invalid response. Please try again. ");
                 result = GetPlayerRollChoice();

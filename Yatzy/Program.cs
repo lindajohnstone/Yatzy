@@ -6,7 +6,8 @@ namespace Yatzy
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var gameController = new GameController(new ConsoleReader(), new ConsoleWriter());
+            gameController.RunGame();
         }
     }
 }
