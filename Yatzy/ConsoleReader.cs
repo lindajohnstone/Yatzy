@@ -9,7 +9,7 @@ namespace Yatzy
         {
             var userInput = Console.ReadLine();
             Category result;
-            if (Enum.TryParse(typeof(Category), userInput, out var choice) && availableCategories.Contains((Category)choice))
+            if (Enum.TryParse(typeof(Category), userInput, true, out var choice) && availableCategories.Contains((Category)choice))
             {
                 result = (Category)choice;
             }
@@ -50,7 +50,7 @@ namespace Yatzy
         {
             var userInput = Console.ReadLine();
             Choice result;
-            if (Enum.TryParse(typeof(Choice), userInput, out var choice))
+            if (Enum.TryParse(typeof(Choice), userInput, true, out var choice))
             {
                 result = (Choice)choice;
             }

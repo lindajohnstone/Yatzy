@@ -15,7 +15,7 @@ namespace tests.Yatzy
             reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
             reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
             var writer = new Mock<IOutputWriter>();
-            var controller = new GameController(reader.Object, writer.Object);
+            var controller = new GameController(reader.Object, writer.Object, new OutputFormatter());
 
             // act
             controller.RunGame();
@@ -35,7 +35,7 @@ namespace tests.Yatzy
             reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
             reader.Setup(o => o.GetCategoryChoice(categories)).Returns(Category.Chance);
             var writer = new Mock<IOutputWriter>();
-            var controller = new GameController(reader.Object, writer.Object);
+            var controller = new GameController(reader.Object, writer.Object, new OutputFormatter());
 
             // act
             controller.RunGame();

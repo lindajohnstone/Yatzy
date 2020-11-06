@@ -5,7 +5,7 @@ namespace Yatzy
     public enum Category
     {
         [Description("Ones")]
-        Ones = 1, 
+        Ones = 1,
         [Description("Twos")]
         Twos,
         [Description("Threes")]

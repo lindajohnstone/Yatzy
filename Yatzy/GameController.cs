@@ -7,12 +7,14 @@ namespace Yatzy
     {
         private IInputReader _reader;
         private IOutputWriter _writer;
+        private IOutputFormatter _formatter;
         private Scorecard _player;
 
-        public GameController(IInputReader reader, IOutputWriter writer)
+        public GameController(IInputReader reader, IOutputWriter writer, IOutputFormatter formatter)
         {
             _reader = reader;
             _writer = writer;
+            _formatter = formatter;
             _player = new Scorecard();
         }
 
@@ -25,7 +27,8 @@ namespace Yatzy
             var turnCount = 1;
             while (turnCount < 3)
             {
-                _writer.WriteLine(turn.ToString());
+                _writer.WriteLine("Your roll:");
+                _writer.WriteLine(_formatter.FormatDiceRoll(turn.Dice));
                 _writer.WriteLine("Type 'Hold' to select dice to hold or 'End' to end your turn.");
                 choice = _reader.GetPlayerRollChoice();
                 if (choice == Choice.End) break;
@@ -40,21 +43,22 @@ namespace Yatzy
                 }
                 turnCount++;
             }
-            _writer.WriteLine(turn.ToString());
+            _writer.WriteLine("Your final roll:");
+            _writer.WriteLine(_formatter.FormatDiceRoll(turn.Dice));
             _writer.WriteLine("Your turn is now over.");
-
             _writer.WriteLine("Your Scorecard:");
-            // print the scorecard
+            _writer.WriteLine(_formatter.FormatScorecard(_player));
 
             _writer.WriteLine("Please choose a category to score in.");
-            // print the available categories
             var availableCategories = _player.GetAvailableCategories();
+            _writer.WriteLine(_formatter.FormatCategoryList(availableCategories));
             var category = _reader.GetCategoryChoice(availableCategories);
             _player.AddScore(turn.Dice, category);
 
 
             var total = _player.GetTotalScore();
-            _writer.WriteLine($"Your final score: {total}");
+            _writer.WriteLine("Your result is:");
+            _writer.WriteLine(_formatter.FormatScorecard(_player));
         }
     }
 }

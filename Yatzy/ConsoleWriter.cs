@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Yatzy
 {
@@ -6,7 +7,7 @@ namespace Yatzy
     {
         public void WriteLine(string message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine($"{Environment.NewLine}{message}");
         }
     }
 }
