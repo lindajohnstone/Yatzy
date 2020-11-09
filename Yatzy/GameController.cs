@@ -21,6 +21,26 @@ namespace Yatzy
         public void RunGame()
         {
             _writer.WriteLine("Welcome to Yatzy!");
+            DiceController turn = RunOneTurn();
+            ScoreOneTurn(turn);
+            _writer.WriteLine("Your result is:");
+            _writer.WriteLine(_formatter.FormatScorecard(_player));
+        }
+
+        private void ScoreOneTurn(DiceController turn)
+        {
+            _writer.WriteLine("Your Scorecard:");
+            _writer.WriteLine(_formatter.FormatScorecard(_player));
+
+            _writer.WriteLine("Please choose a category to score in.");
+            var availableCategories = _player.GetAvailableCategories();
+            _writer.WriteLine(_formatter.FormatCategoryList(availableCategories));
+            var category = _reader.GetCategoryChoice(availableCategories);
+            _player.AddScore(turn.Dice, category);
+        }
+
+        private DiceController RunOneTurn()
+        {
             var turn = new DiceController();
             turn.RollAllDice();
             Choice choice;
@@ -46,19 +66,7 @@ namespace Yatzy
             _writer.WriteLine("Your final roll:");
             _writer.WriteLine(_formatter.FormatDiceRoll(turn.Dice));
             _writer.WriteLine("Your turn is now over.");
-            _writer.WriteLine("Your Scorecard:");
-            _writer.WriteLine(_formatter.FormatScorecard(_player));
-
-            _writer.WriteLine("Please choose a category to score in.");
-            var availableCategories = _player.GetAvailableCategories();
-            _writer.WriteLine(_formatter.FormatCategoryList(availableCategories));
-            var category = _reader.GetCategoryChoice(availableCategories);
-            _player.AddScore(turn.Dice, category);
-
-
-            var total = _player.GetTotalScore();
-            _writer.WriteLine("Your result is:");
-            _writer.WriteLine(_formatter.FormatScorecard(_player));
+            return turn;
         }
     }
 }

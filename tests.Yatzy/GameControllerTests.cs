@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Moq;
 using Xunit;
@@ -12,8 +13,14 @@ namespace tests.Yatzy
         {
             // arrange
             var reader = new Mock<IInputReader>();
+            var categories = new List<Category>();
+            foreach(Category category in Enum.GetValues(typeof(Category)))
+            {
+                categories.Add(category);
+            }
             reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
             reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
+            reader.Setup(o => o.GetCategoryChoice(categories)).Returns(Category.Chance);
             var writer = new Mock<IOutputWriter>();
             var controller = new GameController(reader.Object, writer.Object, new OutputFormatter());
 
@@ -31,6 +38,10 @@ namespace tests.Yatzy
             // arrange
             var reader = new Mock<IInputReader>();
             var categories = new List<Category>();
+            foreach(Category category in Enum.GetValues(typeof(Category)))
+            {
+                categories.Add(category);
+            }
             reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
             reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
             reader.Setup(o => o.GetCategoryChoice(categories)).Returns(Category.Chance);
