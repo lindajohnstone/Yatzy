@@ -1,7 +1,9 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
+using System;
 
 namespace Yatzy
 {
+    [ExcludeFromCodeCoverage]
     class Program
     {
         static void Main(string[] args)
