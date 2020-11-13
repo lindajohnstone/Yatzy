@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using Xunit;
 using Yatzy;
@@ -11,49 +12,31 @@ namespace tests.Yatzy
         [Fact]
         public void Should_Roll_No_More_Than_Three_Times()
         {
-            // arrange
-            var reader = new Mock<IInputReader>();
-            var categories = new List<Category>();
-            foreach(Category category in Enum.GetValues(typeof(Category)))
-            {
-                categories.Add(category);
-            }
-            reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
-            reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
-            reader.Setup(o => o.GetCategoryChoice(categories)).Returns(Category.Chance);
+            var reader = new StubHoldInput();
             var writer = new Mock<IOutputWriter>();
-            var controller = new GameController(reader.Object, writer.Object, new OutputFormatter());
+            var controller = new GameController(reader, writer.Object, new OutputFormatter());
 
             // act
             controller.RunGame();
 
             // assert
-            reader.Verify(o => o.GetPlayerRollChoice(), Times.Exactly(2));
-            reader.Verify(o => o.GetDiceToHold(), Times.Exactly(2));
+            Assert.Equal(30, reader.getPlayerRollChoiceCount);
+            Assert.Equal(30, reader.getDiceToHoldCount);
         }
 
         [Fact]
         public void Should_Score_Player_Turn_In_Scoreboard()
         {
             // arrange
-            var reader = new Mock<IInputReader>();
-            var categories = new List<Category>();
-            foreach(Category category in Enum.GetValues(typeof(Category)))
-            {
-                categories.Add(category);
-            }
-            reader.SetupSequence(o => o.GetPlayerRollChoice()).Returns(Choice.Hold).Returns(Choice.Hold);
-            reader.SetupSequence(o => o.GetDiceToHold()).Returns(new int[] { 1, 2 }).Returns(new int[] { 3, 5 });
-            reader.Setup(o => o.GetCategoryChoice(categories)).Returns(Category.Chance);
+            var reader = new StubEndInput();
             var writer = new Mock<IOutputWriter>();
-            var controller = new GameController(reader.Object, writer.Object, new OutputFormatter());
+            var controller = new GameController(reader, writer.Object, new OutputFormatter());
 
             // act
             controller.RunGame();
 
             // assert
-            reader.Verify(o => o.GetCategoryChoice(categories), Times.AtLeastOnce);
-            reader.Verify(o => o.GetCategoryChoice(categories), Times.AtMost(15));
+            Assert.Equal(15, reader.getCategoryChoiceCount);
         }
     }
 }

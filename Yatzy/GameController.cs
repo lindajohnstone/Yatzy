@@ -21,8 +21,13 @@ namespace Yatzy
         public void RunGame()
         {
             _writer.WriteLine("Welcome to Yatzy!");
-            DiceController turn = RunOneTurn();
-            ScoreOneTurn(turn);
+            var remainingTurnCount = _player.GetAvailableCategories().Count();
+            while(remainingTurnCount > 0)
+            {
+                DiceController turn = RunOneTurn();
+                ScoreOneTurn(turn);
+                remainingTurnCount--;
+            }
             _writer.WriteLine("Your result is:");
             _writer.WriteLine(_formatter.FormatScorecard(_player));
         }

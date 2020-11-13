@@ -59,7 +59,7 @@ Chose a task
 Score a given roll in a given category. You do not have to program the full game. No random dice rolling. The computer doesn't have to choose the highest scoring category for a given roll.
 If you’re short of time, one simplification is to have it always return the sum of the dice, or zero. So the implementation just has to work out if the dice match a category or not.
 Create a working game for a single player.
-=============================================================================I
+=============================================================================
 Create a working game for human vs human player.
 Create a working game for computer vs human player.
 Extension
