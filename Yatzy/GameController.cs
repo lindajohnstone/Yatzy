@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Yatzy
@@ -8,40 +9,65 @@ namespace Yatzy
         private IInputReader _reader;
         private IOutputWriter _writer;
         private IOutputFormatter _formatter;
-        private Scorecard _player;
+        private List<Scorecard> _players;
 
         public GameController(IInputReader reader, IOutputWriter writer, IOutputFormatter formatter)
         {
             _reader = reader;
             _writer = writer;
             _formatter = formatter;
-            _player = new Scorecard();
+            _players = new List<Scorecard>();
         }
 
         public void RunGame()
         {
             _writer.WriteLine("Welcome to Yatzy!");
-            var remainingTurnCount = _player.GetAvailableCategories().Count();
-            while(remainingTurnCount > 0)
+            _writer.WriteLine("Please enter the number of players (1 or 2):");
+            var playerCount = _reader.GetNumberOfPlayers();
+            for (int playerNo = 1; playerNo <= playerCount; playerNo++)
             {
-                DiceController turn = RunOneTurn();
-                ScoreOneTurn(turn);
+                _players.Add(new Scorecard(playerNo));
+            }
+
+            var remainingTurnCount = _players[0].GetAvailableCategories().Count();
+            while (remainingTurnCount > 0)
+            {
+                foreach (var player in _players)
+                {
+                    _writer.WriteLine($"It's player {player.Id}'s turn!");
+                    DiceController turn = RunOneTurn();
+                    ScoreOneTurn(turn, player);
+                }
                 remainingTurnCount--;
             }
-            _writer.WriteLine("Your result is:");
-            _writer.WriteLine(_formatter.FormatScorecard(_player));
+
+            var results = new Dictionary<int, int>();
+            foreach (var player in _players)
+            {
+                _writer.WriteLine($"Player {player.Id}, your result is:");
+                _writer.WriteLine(_formatter.FormatScorecard(player));
+                results.Add(player.Id, player.GetTotalScore());
+            }
+
+            if (_players.Count > 1)
+            {
+                var winner = results.Where((id, result) => result == results.Values.Max());
+                var win = new Dictionary<int, int>(winner);
+                var first = win.First();
+                _writer.WriteLine($"Player {first.Key} wins with a total score of {first.Value}!");
+            }
         }
 
-        private void ScoreOneTurn(DiceController turn)
+        private void ScoreOneTurn(DiceController turn, Scorecard player)
         {
             _writer.WriteLine("Your Scorecard:");
-            _writer.WriteLine(_formatter.FormatScorecard(_player));
+            _writer.WriteLine(_formatter.FormatScorecard(player));
 
             _writer.WriteLine("Please choose a category to score in.");
-            var availableCategories = _player.GetAvailableCategories();
+            var availableCategories = player.GetAvailableCategories();
             _writer.WriteLine(_formatter.FormatCategoryList(availableCategories));
             var category = _reader.GetCategoryChoice(availableCategories);
-            _player.AddScore(turn.Dice, category);
+            player.AddScore(turn.Dice, category);
         }
 
         private DiceController RunOneTurn()

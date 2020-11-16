@@ -11,10 +11,10 @@ namespace tests.Yatzy
         public StubEndInput()
         {
             categories = new Stack<Category>();
-            foreach(Category category in Enum.GetValues(typeof(Category)))
+            foreach (Category category in Enum.GetValues(typeof(Category)))
             {
                 categories.Push(category);
-            } 
+            }
         }
         public Category GetCategoryChoice(List<Category> availableCategories)
         {
@@ -30,6 +30,11 @@ namespace tests.Yatzy
         public Choice GetPlayerRollChoice()
         {
             return Choice.End;
+        }
+
+        public int GetNumberOfPlayers()
+        {
+            return 1;
         }
     }
 }

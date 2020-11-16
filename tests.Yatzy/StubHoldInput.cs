@@ -13,10 +13,10 @@ namespace tests.Yatzy
         public StubHoldInput()
         {
             categories = new Stack<Category>();
-            foreach(Category category in Enum.GetValues(typeof(Category)))
+            foreach (Category category in Enum.GetValues(typeof(Category)))
             {
                 categories.Push(category);
-            } 
+            }
         }
         public Category GetCategoryChoice(List<Category> availableCategories)
         {
@@ -26,13 +26,18 @@ namespace tests.Yatzy
         public int[] GetDiceToHold()
         {
             getDiceToHoldCount++;
-            return new int[2] { 1, 2};
+            return new int[2] { 1, 2 };
         }
 
         public Choice GetPlayerRollChoice()
         {
             getPlayerRollChoiceCount++;
             return Choice.Hold;
+        }
+
+        public int GetNumberOfPlayers()
+        {
+            return 1;
         }
     }
 }
