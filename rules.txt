@@ -59,8 +59,8 @@ Chose a task
 Score a given roll in a given category. You do not have to program the full game. No random dice rolling. The computer doesn't have to choose the highest scoring category for a given roll.
 If you’re short of time, one simplification is to have it always return the sum of the dice, or zero. So the implementation just has to work out if the dice match a category or not.
 Create a working game for a single player.
-=============================================================================
 Create a working game for human vs human player.
+=============================================================================
 Create a working game for computer vs human player.
 Extension
 If you’d like to extend the exercise, try adding a requirement to take a given roll, and return a sorted list of all the categories that give a non-zero score for it. Then you’re half-way to an AI that can play the game for you...

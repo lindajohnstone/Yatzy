@@ -51,10 +51,25 @@ namespace Yatzy
 
             if (_players.Count > 1)
             {
-                var winner = results.Where((id, result) => result == results.Values.Max());
-                var win = new Dictionary<int, int>(winner);
-                var first = win.First();
-                _writer.WriteLine($"Player {first.Key} wins with a total score of {first.Value}!");
+                // var winner = results.Where((id, result) => result == results.Values.Max());
+                // var win = new Dictionary<int, int>(winner);
+                // var first = win.First();
+                var firstPlayerScore = results[1];
+                var secondPlayerScore = results[2];
+                var winner = "";
+                if(firstPlayerScore == secondPlayerScore)
+                {
+                    winner = $"Player 1 and 2 both tie with a score of {firstPlayerScore}!";
+                }
+                else if (firstPlayerScore > secondPlayerScore)
+                {
+                    winner = $"Player 1 wins with a score of {firstPlayerScore}!";
+                }
+                else 
+                {
+                    winner = $"Player 2 wins with a score of {secondPlayerScore}!";
+                }
+                _writer.WriteLine(winner);
             }
         }
 

@@ -38,5 +38,20 @@ namespace tests.Yatzy
             // assert
             Assert.Equal(15, reader.getCategoryChoiceCount);
         }
+        [Fact]
+        public void Should_Score_Two_Players_In_Scoreboard()
+        {
+            // arrange
+            var reader = new TwoPlayerStub();
+            var writer = new Mock<IOutputWriter>();
+            var controller = new GameController(reader, writer.Object, new OutputFormatter());
+
+            // act
+            controller.RunGame();
+
+            // assert
+            Assert.Equal(30, reader.getCategoryChoiceCount);
+            Assert.Equal(30, reader.getPlayerRollChoiceCount);
+        }
     }
 }
