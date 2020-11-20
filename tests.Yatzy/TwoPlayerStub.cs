@@ -31,15 +31,15 @@ namespace tests.Yatzy
             return new int[5];
         }
 
-        public int GetNumberOfPlayers()
-        {
-            return 2;
-        }
-
         public Choice GetPlayerRollChoice()
         {
             getPlayerRollChoiceCount++;
             return Choice.End;
+        }
+
+        public PlayOption GetPlayOption()
+        {
+            return PlayOption.Human;
         }
     }
 }

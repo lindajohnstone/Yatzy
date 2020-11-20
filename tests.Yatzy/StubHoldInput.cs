@@ -35,9 +35,9 @@ namespace tests.Yatzy
             return Choice.Hold;
         }
 
-        public int GetNumberOfPlayers()
+        public PlayOption GetPlayOption()
         {
-            return 1;
+            return PlayOption.Alone;
         }
     }
 }

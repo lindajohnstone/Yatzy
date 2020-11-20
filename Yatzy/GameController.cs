@@ -22,11 +22,19 @@ namespace Yatzy
         public void RunGame()
         {
             _writer.WriteLine("Welcome to Yatzy!");
-            _writer.WriteLine("Please enter the number of players (1 or 2):");
-            var playerCount = _reader.GetNumberOfPlayers();
-            for (int playerNo = 1; playerNo <= playerCount; playerNo++)
+            _writer.WriteLine("Would you like to play alone or with another player (human or computer)?");
+            _writer.WriteLine("Enter 'Alone', 'Human' or 'Computer'.");
+            var playOption = _reader.GetPlayOption();
+
+            _players.Add(new Human(1, new Scorecard(), _reader, _writer, _formatter));
+            switch (playOption)
             {
-                _players.Add(new Human(playerNo, new Scorecard(), _reader, _writer, _formatter));
+                case PlayOption.Human:
+                    _players.Add(new Human(2, new Scorecard(), _reader, _writer, _formatter));
+                    break;
+                case PlayOption.Computer:
+                    _players.Add(new Computer(1, new Scorecard(), _writer, _formatter));
+                    break;
             }
 
             var remainingTurnCount = _players[0].Scorecard.GetAvailableCategories().Count();
