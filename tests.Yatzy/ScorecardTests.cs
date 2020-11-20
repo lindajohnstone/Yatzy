@@ -11,7 +11,7 @@ namespace tests.Yatzy
         public void Should_Add_Score_To_Category()
         {
             // arrange
-            var target = new Scorecard(1);
+            var target = new Scorecard();
             var roll = new[] { 1, 2, 3, 4, 5 };
             var expectedScore = 15;
             // act
@@ -23,7 +23,7 @@ namespace tests.Yatzy
         public void Should_Return_Scorecard_Total_Score()
         {
             // arrange
-            var target = new Scorecard(1);
+            var target = new Scorecard();
             var roll = new[] { 1, 2, 3, 4, 5 };
             target.AddScore(roll, Category.Chance);
             target.AddScore(roll, Category.SmallStraight);
@@ -37,7 +37,7 @@ namespace tests.Yatzy
         public void Should_Return_Available_Categories_No_Scores()
         {
             // arrange
-            var target = new Scorecard(1);
+            var target = new Scorecard();
             List<Category> expected = new List<Category>();
             foreach (Category cat in Enum.GetValues(typeof(Category)))
             {
@@ -53,7 +53,7 @@ namespace tests.Yatzy
         public void Should_Return_Available_Categories_With_Scores()
         {
             // arrange
-            var target = new Scorecard(1);
+            var target = new Scorecard();
             var roll = new[] { 1, 2, 3, 4, 5 };
             target.AddScore(roll, Category.Ones);
             target.AddScore(roll, Category.SmallStraight);
