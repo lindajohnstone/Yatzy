@@ -5,20 +5,6 @@ namespace Yatzy
 {
     public class ConsoleReader : IInputReader
     {
-        public int GetNumberOfPlayers()
-        {
-            var userInput = Console.ReadLine();
-            if (int.TryParse(userInput, out int numberOfPlayers))
-            {
-                if (numberOfPlayers > 0 && numberOfPlayers < 3)
-                {
-                    return numberOfPlayers;
-                }
-            }
-            Console.WriteLine("Invalid response! Number of players must be either 1 or 2. Try again.");
-            return GetNumberOfPlayers();
-        }
-
         public Category GetCategoryChoice(List<Category> availableCategories)
         {
             var userInput = Console.ReadLine();
@@ -71,6 +57,22 @@ namespace Yatzy
             {
                 Console.WriteLine("Invalid response. Please try again. ");
                 result = GetPlayerRollChoice();
+            }
+            return result;
+        }
+
+        public PlayOption GetPlayOption()
+        {
+            var userInput = Console.ReadLine();
+            PlayOption result;
+            if (Enum.TryParse(typeof(PlayOption), userInput, true, out var playOption))
+            {
+                result = (PlayOption)playOption;
+            }
+            else
+            {
+                Console.WriteLine("Invalid response. Please try again. ");
+                result = GetPlayOption();
             }
             return result;
         }

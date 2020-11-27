@@ -7,6 +7,6 @@ namespace Yatzy
         Choice GetPlayerRollChoice();
         int[] GetDiceToHold();
         Category GetCategoryChoice(List<Category> availableCategories);
-        int GetNumberOfPlayers();
+        PlayOption GetPlayOption();
     }
 }

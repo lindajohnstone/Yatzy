@@ -8,13 +8,11 @@ namespace Yatzy
 {
     public class Scorecard
     {
-        public int Id { get; private set; }
         public Dictionary<Category, int> Scores;
-        List<ICategory> categories;
+        public List<ICategory> categories {get; private set;}
 
-        public Scorecard(int id)
+        public Scorecard()
         {
-            Id = id;
             Scores = new Dictionary<Category, int>();
             foreach (Category cat in Enum.GetValues(typeof(Category)))
             {
