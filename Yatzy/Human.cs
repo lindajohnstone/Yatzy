@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Yatzy
@@ -23,6 +24,7 @@ namespace Yatzy
 
         public DiceController PlayOneTurn()
         {
+            _writer.WriteLine($"It's player {Id}'s turn!");
             var turn = new DiceController();
             turn.RollAllDice();
             Choice choice;
@@ -53,7 +55,7 @@ namespace Yatzy
 
         public void ScoreOneTurn(DiceController turn)
         {
-            _writer.WriteLine("Your Scorecard:");
+            _writer.WriteLine("Your scorecard:");
             _writer.WriteLine(_formatter.FormatScorecard(Scorecard));
 
             _writer.WriteLine("Please choose a category to score in.");
@@ -61,6 +63,15 @@ namespace Yatzy
             _writer.WriteLine(_formatter.FormatCategoryList(availableCategories));
             var category = _reader.GetCategoryChoice(availableCategories);
             Scorecard.AddScore(turn.Dice, category);
+            _writer.WriteLine("Your scorecard:");
+            _writer.WriteLine(_formatter.FormatScorecard(Scorecard));
+        }
+
+        public KeyValuePair<string, int> GetFinalScore()
+        {
+            _writer.WriteLine($"Player {Id}, your result is:");
+            _writer.WriteLine(_formatter.FormatScorecard(Scorecard));
+            return new KeyValuePair<string, int> ($"Player {Id} ", Scorecard.GetTotalScore());
         }
     }
 }

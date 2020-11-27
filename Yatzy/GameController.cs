@@ -42,37 +42,36 @@ namespace Yatzy
             {
                 foreach (var player in _players)
                 {
-                    _writer.WriteLine($"It's player {player.Id}'s turn!");
                     var turn = player.PlayOneTurn();
                     player.ScoreOneTurn(turn);
                 }
                 remainingTurnCount--;
             }
 
-            var results = new Dictionary<int, int>();
+            // TODO: fix scoring for computer
+            var results = new Dictionary<string, int>();
             foreach (var player in _players)
             {
-                _writer.WriteLine($"Player {player.Id}, your result is:");
-                _writer.WriteLine(_formatter.FormatScorecard(player.Scorecard));
-                results.Add(player.Id, player.Scorecard.GetTotalScore());
+                var finalScore = player.GetFinalScore();
+                results.Add(finalScore.Key, finalScore.Value);
             }
 
             if (_players.Count > 1)
             {
-                var firstPlayerScore = results[1];
-                var secondPlayerScore = results[2];
+                var firstPlayer = results.First();
+                var secondPlayer = results.Last();
                 var winner = "";
-                if (firstPlayerScore == secondPlayerScore)
+                if (firstPlayer.Value == secondPlayer.Value)
                 {
-                    winner = $"Player 1 and 2 both tie with a score of {firstPlayerScore}!";
+                    winner = $"Both players tie with a score of {firstPlayer.Value}!";
                 }
-                else if (firstPlayerScore > secondPlayerScore)
+                else if (firstPlayer.Value > secondPlayer.Value)
                 {
-                    winner = $"Player 1 wins with a score of {firstPlayerScore}!";
+                    winner = $"{firstPlayer.Key} wins with a score of {firstPlayer.Value}!";
                 }
                 else
                 {
-                    winner = $"Player 2 wins with a score of {secondPlayerScore}!";
+                    winner = $"{secondPlayer.Key} wins with a score of {secondPlayer.Value}!";
                 }
                 _writer.WriteLine(winner);
             }

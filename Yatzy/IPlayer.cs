@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Yatzy
 {
     public interface IPlayer
@@ -6,5 +8,6 @@ namespace Yatzy
         Scorecard Scorecard { get; }
         DiceController PlayOneTurn();
         void ScoreOneTurn(DiceController turn);
+        KeyValuePair<string, int> GetFinalScore();
     }
 }

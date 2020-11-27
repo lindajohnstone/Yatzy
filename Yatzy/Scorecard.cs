@@ -9,7 +9,7 @@ namespace Yatzy
     public class Scorecard
     {
         public Dictionary<Category, int> Scores;
-        List<ICategory> categories;
+        public List<ICategory> categories {get; private set;}
 
         public Scorecard()
         {
