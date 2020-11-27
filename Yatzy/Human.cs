@@ -71,7 +71,7 @@ namespace Yatzy
         {
             _writer.WriteLine($"Player {Id}, your result is:");
             _writer.WriteLine(_formatter.FormatScorecard(Scorecard));
-            return new KeyValuePair<string, int> ($"Player {Id} ", Scorecard.GetTotalScore());
+            return new KeyValuePair<string, int> ($"Player {Id}", Scorecard.GetTotalScore());
         }
     }
 }
