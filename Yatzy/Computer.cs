@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -66,6 +67,8 @@ namespace Yatzy
             {
                 if (numbersToKeep.Contains(turn.Dice[i])) diceToHold.Add(i + 1);
             }
+            var random = new Random();
+            if (diceToHold.Count == 5) diceToHold.Remove(random.Next(1,6));
             return diceToHold.ToArray();
         }
         
