@@ -21,9 +21,8 @@ namespace Yatzy
             Scorecard = scorecard;
         }
 
-        public DiceController PlayOneTurn()
+        public DiceController PlayOneTurn(DiceController turn)
         {
-            var turn = new DiceController();
             turn.RollAllDice();
             Choice choice;
             var turnCount = 1;

@@ -6,7 +6,7 @@ namespace Yatzy
     {
         int Id { get; }
         Scorecard Scorecard { get; }
-        DiceController PlayOneTurn();
+        DiceController PlayOneTurn(DiceController diceController);
         void ScoreOneTurn(DiceController turn);
         KeyValuePair<string, int> GetFinalScore();
     }

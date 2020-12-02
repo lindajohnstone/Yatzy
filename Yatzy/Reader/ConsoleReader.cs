@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Yatzy
 {
+    [ExcludeFromCodeCoverage]
     public class ConsoleReader : IInputReader
     {
         public Category GetCategoryChoice(List<Category> availableCategories)

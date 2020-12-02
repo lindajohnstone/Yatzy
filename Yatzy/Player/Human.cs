@@ -22,10 +22,9 @@ namespace Yatzy
             _formatter = formatter;
         }
 
-        public DiceController PlayOneTurn()
+        public DiceController PlayOneTurn(DiceController turn)
         {
             _writer.WriteLine($"It's player {Id}'s turn!");
-            var turn = new DiceController();
             turn.RollAllDice();
             Choice choice;
             var turnCount = 1;

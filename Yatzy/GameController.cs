@@ -42,7 +42,8 @@ namespace Yatzy
             {
                 foreach (var player in _players)
                 {
-                    var turn = player.PlayOneTurn();
+                    var diceController = new DiceController();
+                    var turn = player.PlayOneTurn(diceController);
                     player.ScoreOneTurn(turn);
                 }
                 remainingTurnCount--;

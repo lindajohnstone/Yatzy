@@ -6,7 +6,7 @@ namespace Yatzy
     public class DiceController
     {
         private Random _die;
-        public int[] Dice { get; private set; }
+        public int[] Dice { get; protected set; }
 
         public DiceController()
         {
