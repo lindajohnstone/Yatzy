@@ -24,30 +24,20 @@ namespace Yatzy
         public DiceController PlayOneTurn(DiceController turn)
         {
             turn.RollAllDice();
-            Choice choice;
             var turnCount = 1;
             while (turnCount < 3)
             {
                 _writer.WriteLine("The computers' roll:");
                 _writer.WriteLine(_formatter.FormatDiceRoll(turn.Dice));
-                choice = DecidePlayerRollChoice(turn);
                 Thread.Sleep(3000);
-                _writer.WriteLine($"The computer has chosen to {choice}.");
-                if (choice == Choice.End) break;
-                var heldDice = DecideDiceToHold(turn);
-                var diceNumbers = "";
-                foreach(var die in heldDice)
+                switch (DecidePlayerRollChoice(turn))
                 {
-                    diceNumbers += $"{die} ";
-                }
-                _writer.WriteLine($"The computer has decided to hold dice numbers: {diceNumbers}");
-                _writer.WriteLine("Rerolling...");
-                for (int diceNum = 1; diceNum < 6; diceNum++)
-                {
-                    if (!heldDice.Contains(diceNum))
-                    {
-                        turn.RollOneDie(diceNum - 1);
-                    }
+                    case Choice.Hold:
+                        RerollDice(turn);
+                        break;
+                    case Choice.End:
+                        turnCount = 3;
+                        break;
                 }
                 turnCount++;
                 Thread.Sleep(3000);
@@ -58,24 +48,46 @@ namespace Yatzy
             return turn;
         }
 
+        private void RerollDice(DiceController turn)
+        {
+            var heldDice = DecideDiceToHold(turn);
+            var diceNumbers = "";
+            foreach (var die in heldDice)
+            {
+                diceNumbers += $"{die} ";
+            }
+            _writer.WriteLine($"The computer has decided to hold dice numbers: {diceNumbers}");
+            _writer.WriteLine("Rerolling...");
+            for (int diceNum = 1; diceNum < 6; diceNum++)
+            {
+                if (!heldDice.Contains(diceNum))
+                {
+                    turn.RollOneDie(diceNum - 1);
+                }
+            }
+        }
+
         private int[] DecideDiceToHold(DiceController turn)
         {
-            var numbersToKeep = new int[] {4,5,6};
+            var numbersToKeep = new int[] { 4, 5, 6 };
             var diceToHold = new List<int>();
             for (int i = 0; i < 5; i++)
             {
                 if (numbersToKeep.Contains(turn.Dice[i])) diceToHold.Add(i + 1);
             }
             var random = new Random();
-            if (diceToHold.Count == 5) diceToHold.Remove(random.Next(1,6));
+            if (diceToHold.Count == 5) diceToHold.Remove(random.Next(1, 6));
             return diceToHold.ToArray();
         }
-        
+
         private Choice DecidePlayerRollChoice(DiceController turn)
         {
+            Choice choice;
             Dictionary<Category, int> possibleScores = GeneratePossibleScores(turn);
-            if (possibleScores.Any(_ => _.Value > 15)) return Choice.End;
-            return Choice.Hold;
+            if (possibleScores.Any(_ => _.Value > 15)) choice = Choice.End;
+            else choice = Choice.Hold;
+            _writer.WriteLine($"The computer has chosen to {choice}.");
+            return choice;
         }
 
         private Dictionary<Category, int> GeneratePossibleScores(DiceController turn)
@@ -111,7 +123,7 @@ namespace Yatzy
             var bestScore = possibleScores.First();
             foreach (var possibleScore in possibleScores)
             {
-                if(possibleScore.Value > bestScore.Value) bestScore = possibleScore;
+                if (possibleScore.Value > bestScore.Value) bestScore = possibleScore;
             }
             return bestScore.Key;
         }
@@ -120,7 +132,7 @@ namespace Yatzy
         {
             _writer.WriteLine("The computers' result is:");
             _writer.WriteLine(_formatter.FormatScorecard(Scorecard));
-            return new KeyValuePair<string, int> ($"The computer", Scorecard.GetTotalScore());
+            return new KeyValuePair<string, int>($"The computer", Scorecard.GetTotalScore());
         }
     }
 }

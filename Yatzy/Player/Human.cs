@@ -38,12 +38,7 @@ namespace Yatzy
                 _writer.WriteLine("Please enter the numbers of the dice you which to hold separated by either a comma (,) or a space.");
                 var heldDice = _reader.GetDiceToHold();
                 for (int diceNum = 1; diceNum < 6; diceNum++)
-                {
-                    if (!heldDice.Contains(diceNum))
-                    {
-                        turn.RollOneDie(diceNum - 1);
-                    }
-                }
+                    if (!heldDice.Contains(diceNum)) turn.RollOneDie(diceNum - 1);
                 turnCount++;
             }
             _writer.WriteLine("Your final roll:");
@@ -70,7 +65,7 @@ namespace Yatzy
         {
             _writer.WriteLine($"Player {Id}, your result is:");
             _writer.WriteLine(_formatter.FormatScorecard(Scorecard));
-            return new KeyValuePair<string, int> ($"Player {Id}", Scorecard.GetTotalScore());
+            return new KeyValuePair<string, int>($"Player {Id}", Scorecard.GetTotalScore());
         }
     }
 }
